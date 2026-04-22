@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Appointment;
+use App\Models\Service;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,14 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'patient_id' => User::where('role', 'patient')->inRandomOrder()->first()?->id 
+                            ?? User::factory()->state(['role' => 'patient']),
+            'doctor_id' => User::where('role', 'doctor')->inRandomOrder()->first()?->id 
+                            ?? User::factory()->state(['role' => 'doctor']),
+            'service_id' => Service::inRandomOrder()->first()?->id 
+                            ?? Service::factory(),
+            'appointment_date' => fake()->dateTimeBetween('now', '+1 month'),
+            'status' => fake()->randomElement(['pending', 'confirmed', 'cancelled']),
         ];
     }
 }
