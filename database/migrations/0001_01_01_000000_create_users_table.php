@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('role', ['patient', 'doctor'])->default('patient');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

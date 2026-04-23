@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
         
         foreach ($patients as $patient) {
             Appointment::factory()
-                ->count(3)
                 ->create([
                     'patient_id' => $patient->id,
                     'doctor_id' => $doctors->random()->id,
