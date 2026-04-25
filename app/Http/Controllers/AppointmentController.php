@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AppointmentConfirmed;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
 {
@@ -12,7 +14,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::with(['patient','doctor','service'])->get();
+        return view('appointments.index', compact('appointments'));
     }
 
     /**
@@ -28,7 +31,11 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $appointment = Appointment::create($request->all());
+
+        Mail::to(auth()->user()->email)->send(new AppointmentConfirmed($appointment));
+
+        return redirect()->back();
     }
 
     /**
@@ -52,7 +59,8 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        $appointment->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -60,6 +68,13 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+        return redirect()->back();
+    }
+
+    public function search(Request $request)
+    {
+        $appointments = Appointment::where('appointment_date', 'like', "%{$request->q}%")->get();
+        return response()->json($appointments);
     }
 }
