@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <title>Medical App</title>
+    <title>Medical App</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+        href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
+        rel="stylesheet"
+    />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        @include('partials.header')
-        <div class="min-h-screen bg-gray-100">
-            @include('partials.sidebar')
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+    @vite (['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
-            <!-- Page Content -->
-            <main>
-                @yield('content')
-            </main>
+<body class="font-sans antialiased bg-slate-100">
+    <!-- Header -->
+    @include ('partials.header')
+
+    <!-- Layout wrapper -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 fixed h-screen">
+            @include ('partials.sidebar')
         </div>
-        @include('partials.footer')
-    </body>
+
+        <!-- Main Content -->
+        <div class="flex-1 ml-64 min-h-screen flex flex-col">
+            <main class="flex-1 p-6">
+                @yield ('content')
+            </main>
+
+            <!-- Footer -->
+            @include ('partials.footer')
+        </div>
+    </div>
+</body>
 </html>

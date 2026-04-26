@@ -1,10 +1,11 @@
 @extends ('layouts.app')
 
 @section ('content')
-    <div class="container">
+    <div class="class= w-full">
         <h2>{{ __('messages.appointments') }}</h2>
 
         <!-- 🔍 SEARCH -->
+        
         <input
             type="text"
             id="search"
