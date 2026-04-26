@@ -99,7 +99,7 @@ http://127.0.0.1:8000
 
 | Rôle    | Email                                     | Mot de passe |
 | ------- | ----------------------------------------- | ------------ |
-| Patient | [test@test.com](mailto:test@test.com)     | password     |
+| Patient | [patient@test.com](mailto:test@test.com)  | password     |
 | Médecin | [doctor@test.com](mailto:doctor@test.com) | password     |
 
 ---
@@ -134,17 +134,6 @@ Body JSON :
 
 ---
 
-## 🔄 Étapes après un `git pull` (TRÈS IMPORTANT)
-
-Si quelqu’un récupère le projet ou fait un `git pull`, il doit exécuter :
-
-```bash
-composer install
-npm install
-php artisan migrate
-npm run dev
-```
-
 👉 Si problème de cache :
 
 ```bash
@@ -167,23 +156,24 @@ php artisan view:clear
 
 ## ⚠️ Remarques
 
-* Les emails sont configurés en mode `log` (pas d’envoi réel)
-* Les modales sont utilisées pour améliorer l’expérience utilisateur
-* Les données sont générées automatiquement pour faciliter la démonstration
+* Dans cette version de l’application, la gestion des **patients, médecins et services** (ajout, modification, suppression) n’est pas disponible via l’interface utilisateur.
+* Ces données sont **pré-remplies automatiquement** grâce aux seeders pour faciliter les tests et la démonstration.
+* L’utilisateur peut uniquement gérer les **rendez-vous** (création, modification, consultation, suppression).
+* Les emails sont configurés en mode `log`, ce qui signifie qu’ils ne sont pas réellement envoyés mais enregistrés dans les logs du système.
+* L’application peut être améliorée en ajoutant :
+
+  * un module complet de gestion des utilisateurs (patients/médecins)
+  * une interface d’administration pour les services
+  * des notifications en temps réel
+
+---
+
 
 ---
 
 ## 👨‍💻 Auteur
 
-Projet réalisé par **[Ton Nom]**
+Projet réalisé par **Abderrahim El Hasskouri**
 Formation Développement Digital - OFPPT
-
----
-
-## ✅ État du projet
-
-✔ Fonctionnel
-✔ Prêt pour démonstration
-✔ Conforme au cahier des charges
 
 ---
