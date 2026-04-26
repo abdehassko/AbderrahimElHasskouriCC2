@@ -108,7 +108,7 @@ http://127.0.0.1:8000
 
  Email                                                      | Mot de passe |
  ---------------------------------------------------------- | ------------ |
- [admin@cliniquemaroc.com](mailto:admin@cliniquemaroc.com)  | 1212         |
+ [admin@cliniquemaroc.com](mailto:admin@cliniquemaroc.com)  | 123456789    |
 
 ---
 
