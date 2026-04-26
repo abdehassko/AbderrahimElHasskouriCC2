@@ -35,7 +35,7 @@ Une application web développée avec **Laravel** permettant de gérer les rende
 
 ```bash
 git clone https://github.com/abdehassko/AbderrahimElHasskouriCC2
-cd TON-REPO
+cd AbderrahimElHasskouriCC2
 ```
 
 ---
