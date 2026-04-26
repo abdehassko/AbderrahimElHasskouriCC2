@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('/appointments', AppointmentController::class)->middleware('auth');
 
-Route::get('/search-appointments', [AppointmentController::class, 'search']);
+Route::get('/search-appointments', [AppointmentController::class, 'search'])->name('search-appointments');
 
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'fr', 'ar'])) {

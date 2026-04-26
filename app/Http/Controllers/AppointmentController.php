@@ -41,7 +41,11 @@ class AppointmentController extends Controller
         ]);
         $appointment = Appointment::create($request->all());
 
-        Mail::to(auth()->user()->email)->send(new AppointmentConfirmed($appointment));
+        if ($appointment->status == "confirmed") {
+            Mail::to($appointment->patient->email)
+                ->send(new AppointmentConfirmed($appointment));
+            return redirect()->back()->with('success', 'Appointment created successfully and email sent to the patient');
+        }
 
         return redirect()->back()->with('success', 'Appointment created successfully');
     }
@@ -77,6 +81,12 @@ class AppointmentController extends Controller
         ]);
 
         $appointment->update($request->all());
+
+        if ($appointment->status == "confirmed") {
+            Mail::to($appointment->patient->email)
+                ->send(new AppointmentConfirmed($appointment));
+            return redirect()->back()->with('success', 'Appointment updated successfully and email sent to the patient');
+        };
 
         return redirect('/appointments')->with('success', 'Appointment updated successfully');
     }

@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Yes</title>
-</head>
-<body>
-    <h2>yessssssss</h2>
-</body>
-</html>
+<h2>Appointment Confirmed</h2>
+
+<p>Hello {{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
+
+<p>Your appointment is confirmed:</p>
+
+<ul>
+    <li>
+        Doctor: {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}
+    </li>
+    <li>Service: {{ $appointment->service->name }}</li>
+    <li>Date: {{ $appointment->appointment_date }}</li>
+</ul>

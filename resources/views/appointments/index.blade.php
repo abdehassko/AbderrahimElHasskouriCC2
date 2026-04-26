@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 @section ('content')
-    <div class="class= w-full">
+    <div class="w-full">
         <input
             type="text"
             id="search"
@@ -323,5 +323,40 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("search").addEventListener("keyup", function () {
+            let query = this.value;
 
+            axios
+                .get("{{ route('search-appointments') }}", {
+                    params: { q: query },
+                })
+                .then((response) => {
+                    let rows = "";
+
+                    response.data.forEach((app) => {
+                        rows += `
+                        <tr>
+                            <td>${app.id}</td>
+                            <td>${app.patient.first_name} ${app.patient.last_name}</td>
+                            <td>${app.doctor.first_name} ${app.doctor.last_name}</td>
+                            <td>${app.service.name}</td>
+                            <td>${app.appointment_date}</td>
+                            <td>${app.status}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm">Show</button>
+                                <button class="btn btn-warning btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    });
+
+                    document.getElementById("tableBody").innerHTML = rows;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
+    </script>
 @endsection
