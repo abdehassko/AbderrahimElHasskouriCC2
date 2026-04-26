@@ -56,17 +56,26 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-👉 Modifier le fichier `.env` pour configurer la base de données :
+👉 Modifier le fichier `.env` pour configurer la base de données et le serveur mail :
 
 ```env
 DB_DATABASE=nom_de_la_base
-DB_USERNAME=root
-DB_PASSWORD=
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+MAIL_USERNAME=your_email
+MAIL_PASSWORD=your_email_app_password
 ```
 
 ---
 
-### 4️⃣ Migration + Seeders (IMPORTANT)
+### 4️⃣ Installer api
+
+```bash
+php artisan install:api
+```
+
+### 5️⃣ Migration + Seeders
 
 ```bash
 php artisan migrate --seed
@@ -80,7 +89,7 @@ php artisan migrate --seed
 
 ---
 
-### 5️⃣ Lancer le projet
+### 6️⃣ Lancer le projet
 
 ```bash
 npm run dev
@@ -95,42 +104,114 @@ http://127.0.0.1:8000
 
 ---
 
-## 🔑 Comptes de test
+## 🔑 Compte de test
 
-| Rôle    | Email                                     | Mot de passe |
-| ------- | ----------------------------------------- | ------------ |
-| Patient | [patient@test.com](mailto:test@test.com)  | password     |
-| Médecin | [doctor@test.com](mailto:doctor@test.com) | password     |
+ Email                                                      | Mot de passe |
+ ---------------------------------------------------------- | ------------ |
+ [admin@cliniquemaroc.com](mailto:admin@cliniquemaroc.com)  | 1212         |
 
 ---
 
-## 🌐 API REST
+## 🌐 Documentation de l’API REST
 
-### 📌 Lister les rendez-vous
+L’application expose des endpoints API permettant d’interagir avec les rendez-vous au format JSON.
 
-```
+---
+
+### 📌 1. Lister tous les rendez-vous
+
+**Endpoint :**
+
+```http
 GET /api/appointments
 ```
 
+**Description :**
+Retourne la liste de tous les rendez-vous enregistrés dans la base de données avec le patient/doctor/service.
+
+**Exemple de réponse :**
+
+```json
+[
+  {
+    "id": 1,
+    "patient_id": 3,
+    "doctor_id": 2,
+    "service_id": 1,
+    "appointment_date": "2026-05-01 10:00:00",
+    "status": "confirmed"
+  }
+]
+```
+
 ---
 
-### 📌 Créer un rendez-vous
+### 📌 2. Créer un nouveau rendez-vous
 
-```
+**Endpoint :**
+
+```http
 POST /api/appointments
 ```
 
-Body JSON :
+**Description :**
+Permet de créer un nouveau rendez-vous via une requête externe (Postman, frontend, etc.).
+
+**Body (JSON) :**
 
 ```json
 {
   "patient_id": 1,
   "doctor_id": 2,
   "service_id": 1,
-  "appointment_date": "2026-05-01 10:00:00",
+  "appointment_date": "2026-05-10 14:30:00",
   "status": "pending"
 }
 ```
+
+**Exemple de réponse :**
+
+```json
+**Exemple de réponse :**
+
+```json
+[
+  {
+    "id": 1,
+    "appointment_date": "2026-05-10 14:30:00",
+    "status": "confirmed",
+
+    "patient": {
+      "id": 1,
+      "first_name": "Paul",
+      "last_name": "Arelan",
+      "email": "patient@test.com"
+    },
+
+    "doctor": {
+      "id": 2,
+      "name": "Dr. Ahmed",
+      "email": "doctor@test.com"
+    },
+
+    "service": {
+      "id": 1,
+      "name": "Consultation"
+    },
+
+    "created_at": "2026-04-25T10:00:00.000000Z",
+    "updated_at": "2026-04-25T10:00:00.000000Z"
+  }
+]
+```
+
+```
+
+---
+
+### ⚠️ Remarques API
+
+* Test recommandé avec **Postman** ou **Thunder Client**.
 
 ---
 
