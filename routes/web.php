@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('/appointments', AppointmentController::class)->middleware('auth');;
+Route::resource('/appointments', AppointmentController::class)->middleware('auth');
 
 Route::get('/search-appointments', [AppointmentController::class, 'search']);
 

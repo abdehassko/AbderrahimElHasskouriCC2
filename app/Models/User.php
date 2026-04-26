@@ -4,8 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +19,6 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-
     protected $fillable = [
         'first_name',
         'last_name',
@@ -35,7 +32,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    
+
     protected function casts(): array
     {
         return [
@@ -43,10 +40,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function appointmentsPatient():HasMany{
-        return $this->hasMany(Appointment::class,'patient_id');
+
+    public function appointmentsPatient(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
     }
-    public function appointmentsDoctor():HasMany{
-        return $this->hasMany(Appointment::class,'doctor_id');
+
+    public function appointmentsDoctor(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
     }
 }

@@ -19,13 +19,13 @@ class ServiceFactory extends Factory
     {
         return [
             'name' => fake()->randomElement([
-                                 'General Consultation',
-                                 'Blood Test',
-                                 'MRI Scan',
-                                 'X-Ray',
-                                 'Surgery',
-                                 'Physiotherapy Session'
-                             ]),
+                'General Consultation',
+                'Blood Test',
+                'MRI Scan',
+                'X-Ray',
+                'Surgery',
+                'Physiotherapy Session',
+            ]),
             'price' => fake()->randomFloat(2, 450, 20000),
             'description' => fake()->paragraph(),
             'category' => fake()->randomElement([
@@ -38,7 +38,7 @@ class ServiceFactory extends Factory
                 'emergency',
                 'pharmacy',
                 'home_care',
-                'other'
+                'other',
             ]),
         ];
     }

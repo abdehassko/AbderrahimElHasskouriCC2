@@ -1,5 +1,5 @@
 <?php
-    return [
-        'welcome' => 'Welcome',
-    ];
-?>
+
+return [
+    'welcome' => 'Welcome',
+];

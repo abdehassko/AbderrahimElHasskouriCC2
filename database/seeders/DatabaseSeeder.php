@@ -17,24 +17,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         $doctors = User::factory()
             ->count(10)
             ->state(['role' => 'doctor'])
             ->create();
 
-        
         $patients = User::factory()
             ->count(25)
             ->state(['role' => 'patient'])
             ->create();
 
-        
         $services = Service::factory()
             ->count(10)
             ->create();
 
-        
         foreach ($patients as $patient) {
             Appointment::factory()
                 ->create([

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('price',10,2);
+            $table->decimal('price', 10, 2);
             $table->text('description')->nullable();
-            $table->enum('category',[
+            $table->enum('category', [
                 'consultation',
                 'diagnostics',
                 'laboratory',
@@ -26,7 +26,7 @@ return new class extends Migration
                 'emergency',
                 'pharmacy',
                 'home_care',
-                'other'
+                'other',
             ])->nullable();
             $table->timestamps();
         });
