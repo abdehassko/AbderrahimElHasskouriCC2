@@ -34,7 +34,7 @@ Une application web développée avec **Laravel** permettant de gérer les rende
 ### 1️⃣ Cloner le projet
 
 ```bash
-git clone https://github.com/TON-USERNAME/TON-REPO.git
+git clone https://github.com/abdehassko/AbderrahimElHasskouriCC2
 cd TON-REPO
 ```
 
