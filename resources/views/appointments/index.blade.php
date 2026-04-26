@@ -2,18 +2,13 @@
 
 @section ('content')
     <div class="class= w-full">
-        <h2>{{ __('messages.appointments') }}</h2>
-
-        <!-- 🔍 SEARCH -->
-        
         <input
             type="text"
             id="search"
             class="form-control mb-3"
-            placeholder="Search by anything..."
+            placeholder="{{ __('messages.search') }}"
         />
 
-        <!-- ➕ ADD BUTTON -->
         <button
             class="btn btn-primary mb-3"
             data-bs-toggle="modal"
@@ -35,17 +30,16 @@
             </div>
         @endif
 
-        <!-- 📋 TABLE -->
         <table class="table table-bordered" id="appointmentsTable">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Patient</th>
-                    <th>Doctor</th>
-                    <th>Service</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>{{ __('messages.patient') }}</th>
+                    <th>{{ __('messages.doctor') }}</th>
+                    <th>{{ __('messages.service') }}</th>
+                    <th>{{ __('messages.date') }}</th>
+                    <th>{{ __('messages.status') }}</th>
+                    <th>{{ __('messages.actions') }}</th>
                 </tr>
             </thead>
 
@@ -61,68 +55,65 @@
                         </td>
                         <td>{{ $appointment->service->name }}</td>
                         <td>{{ $appointment->appointment_date }}</td>
-                        <td>{{ $appointment->status }}</td>
+                        <td>{{ __('messages.' . $appointment->status) }}</td>
                         <td>
-                            <!-- 👁 SHOW -->
                             <button
                                 class="btn btn-info btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#showModal{{ $appointment->id }}"
                             >
-                                Show
+                                {{ __('messages.show') }}
                             </button>
 
-                            <!-- ✏ EDIT -->
                             <button
                                 class="btn btn-warning btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal{{ $appointment->id }}"
                             >
-                                Edit
+                                {{ __('messages.edit') }}
                             </button>
 
-                            <!-- 🗑 DELETE -->
                             <button
                                 class="btn btn-danger btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteModal{{ $appointment->id }}"
                             >
-                                Delete
+                                {{ __('messages.delete') }}
                             </button>
                         </td>
                     </tr>
-                    <!-- ================= SHOW MODAL ================= -->
                     <div
                         class="modal fade"
                         id="showModal{{ $appointment->id }}"
                     >
                         <div class="modal-dialog">
                             <div class="modal-content p-3">
-                                <h4>Appointment Details</h4>
+                                <h4>
+                                    {{ __('messages.appointment_details') }}
+                                </h4>
 
-                                <p><b>Patient:</b> {{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
-                                <p><b>Doctor:</b> {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</p>
-                                <p><b>Service:</b> {{ $appointment->service->name }}</p>
-                                <p><b>Date:</b> {{ $appointment->appointment_date }}</p>
-                                <p><b>Status:</b> {{ $appointment->status }}</p>
+                                <p><b>{{ __('messages.patient') }}:</b> {{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
+                                <p><b>{{ __('messages.doctor') }}:</b> {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</p>
+                                <p><b>{{ __('messages.service') }}:</b> {{ $appointment->service->name }}</p>
+                                <p><b>{{ __('messages.date') }}:</b> {{ $appointment->appointment_date }}</p>
+                                <p><b>{{ __('messages.status') }}:</b> {{ __('messages.' . $appointment->status) }}</p>
 
                                 <button
                                     class="btn btn-secondary"
                                     data-bs-dismiss="modal"
                                 >
-                                    Close
+                                    {{ __('messages.close') }}
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <!-- ================= EDIT MODAL ================= -->
                     <div
                         class="modal fade"
                         id="editModal{{ $appointment->id }}"
                     >
                         <div class="modal-dialog">
                             <div class="modal-content p-3">
-                                <h4>Edit Appointment</h4>
+                                <h4>{{ __('messages.edit_appointment') }}</h4>
 
                                 <form
                                     method="POST"
@@ -135,7 +126,7 @@
                                         value="PUT"
                                     />
 
-                                    <label>Patient</label>
+                                    <label>{{ __('messages.patient') }}</label>
                                     <select
                                         name="patient_id"
                                         class="form-control"
@@ -143,20 +134,14 @@
                                         @foreach (\App\Models\User::where('role','patient')->get() as $patient)
                                             <option
                                                 value="{{ $patient->id }}"
-                                                {{ $patient->id ==  $appointment->patient_id
-                                                ?
-                                                'selected'
-                                                :
-                                                ''
-                                                }}
+                                                {{ $patient->id ==  $appointment->patient_id ? 'selected' : '' }}
                                             >
                                                 {{ $patient->first_name }} {{ $patient->last_name }}
                                             </option>
                                         @endforeach
                                     </select>
 
-                                    <label>Doctor</label>
-
+                                    <label>{{ __('messages.doctor') }}</label>
                                     <select
                                         name="doctor_id"
                                         class="form-control"
@@ -164,19 +149,14 @@
                                         @foreach (\App\Models\User::where('role','doctor')->get() as $doctor)
                                             <option
                                                 value="{{ $doctor->id }}"
-                                                {{ $doctor->id ==  $appointment->doctor_id
-                                                ?
-                                                'selected'
-                                                :
-                                                ''
-                                                }}
+                                                {{ $doctor->id ==  $appointment->doctor_id ? 'selected' : '' }}
                                             >
                                                 {{ $doctor->first_name }} {{ $doctor->last_name }}
                                             </option>
                                         @endforeach
                                     </select>
 
-                                    <label>Service</label>
+                                    <label>{{ __('messages.service') }}</label>
                                     <select
                                         name="service_id"
                                         class="form-control mt-2"
@@ -184,19 +164,14 @@
                                         @foreach (\App\Models\Service::all() as $service)
                                             <option
                                                 value="{{ $service->id }}"
-                                                {{ $service->id ==  $appointment->service_id
-                                                ?
-                                                'selected'
-                                                :
-                                                ''
-                                                }}
+                                                {{ $service->id ==  $appointment->service_id ? 'selected' : '' }}
                                             >
                                                 {{ $service->name }}
                                             </option>
                                         @endforeach
                                     </select>
 
-                                    <label>Date</label>
+                                    <label>{{ __('messages.date') }}</label>
                                     <input
                                         type="datetime-local"
                                         name="appointment_date"
@@ -204,7 +179,7 @@
                                         value="{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('Y-m-d\TH:i') }}"
                                     />
 
-                                    <label>Status</label>
+                                    <label>{{ __('messages.status') }}</label>
                                     <select
                                         name="status"
                                         class="form-control mt-2"
@@ -212,17 +187,20 @@
                                         <option
                                             value="pending"
                                             {{ $appointment->status == 'pending' ? 'selected' : '' }}
-                                            >Pending
+                                        >
+                                            {{ __('messages.pending') }}
                                         </option>
                                         <option
                                             value="confirmed"
                                             {{ $appointment->status == 'confirmed' ? 'selected' : '' }}
-                                            >Confirmed
+                                        >
+                                            {{ __('messages.confirmed') }}
                                         </option>
                                         <option
                                             value="cancelled"
                                             {{ $appointment->status == 'cancelled' ? 'selected' : '' }}
-                                            >Cancelled
+                                        >
+                                            {{ __('messages.cancelled') }}
                                         </option>
                                     </select>
 
@@ -230,21 +208,20 @@
                                         type="submit"
                                         class="btn btn-success mt-3"
                                     >
-                                        Update
+                                        {{ __('messages.update') }}
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <!-- ================= DELETE MODAL ================= -->
                     <div
                         class="modal fade"
                         id="deleteModal{{ $appointment->id }}"
                     >
                         <div class="modal-dialog">
                             <div class="modal-content p-3">
-                                <h4>Confirm Delete</h4>
-                                <p>Are you sure you want to delete this appointment?</p>
+                                <h4>{{ __('messages.confirm_delete') }}</h4>
+                                <p>{{ __('messages.delete_question') }}</p>
 
                                 <form
                                     method="POST"
@@ -254,7 +231,7 @@
                                     @method ('DELETE')
 
                                     <button class="btn btn-danger">
-                                        Yes, Delete
+                                        {{ __('messages.delete') }}
                                     </button>
                                 </form>
 
@@ -262,7 +239,7 @@
                                     class="btn btn-secondary mt-2"
                                     data-bs-dismiss="modal"
                                 >
-                                    Cancel
+                                    {{ __('messages.cancel') }}
                                 </button>
                             </div>
                         </div>
@@ -272,19 +249,18 @@
             </tbody>
         </table>
     </div>
-    <!-- ================= CREATE MODAL ================= -->
     <div class="modal fade" id="createModal">
         <div class="modal-dialog">
             <div class="modal-content p-3">
-                <h4>Add Appointment</h4>
+                <h4>{{ __('messages.add_appointment') }}</h4>
 
                 <form method="POST" action="{{ route('appointments.store') }}">
                     @csrf
 
-                    <label>Patient</label>
+                    <label>{{ __('messages.patient') }}</label>
                     <select name="patient_id" class="form-control">
                         <option value="" disabled selected>
-                            ---- Choose patient ----
+                            ---- {{ __('messages.choose_patient') }} ----
                         </option>
                         @foreach (\App\Models\User::where('role','doctor')->get() as $patient)
                             <option value="{{ $patient->id }}">
@@ -293,10 +269,10 @@
                         @endforeach
                     </select>
 
-                    <label>Doctor</label>
+                    <label>{{ __('messages.doctor') }}</label>
                     <select name="doctor_id" class="form-control">
                         <option value="" disabled selected>
-                            ---- Choose doctor ----
+                            ---- {{ __('messages.choose_doctor') }} ----
                         </option>
                         @foreach (\App\Models\User::where('role','doctor')->get() as $doctor)
                             <option value="{{ $doctor->id }}">
@@ -305,10 +281,10 @@
                         @endforeach
                     </select>
 
-                    <label>Service</label>
+                    <label>{{ __('messages.service') }}</label>
                     <select name="service_id" class="form-control mt-2">
                         <option value="" disabled selected>
-                            ---- Choose service ----
+                            ---- {{ __('messages.choose_service') }} ----
                         </option>
                         @foreach (\App\Models\Service::all() as $service)
                             <option value="{{ $service->id }}">
@@ -317,67 +293,35 @@
                         @endforeach
                     </select>
 
-                    <label>Date</label>
+                    <label>{{ __('messages.date') }}</label>
                     <input
                         type="datetime-local"
                         name="appointment_date"
                         class="form-control mt-2"
                     />
 
-                    <label>Status</label>
+                    <label>{{ __('messages.status') }}</label>
                     <select name="status" class="form-control mt-2">
                         <option value="" disabled selected>
-                            ---- Choose status ----
+                            ---- {{ __('messages.choose_status') }} ----
                         </option>
-                        <option value="pending">Pending</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="cancelled">Cancelled</option>
+                        <option value="pending">
+                            {{ __('messages.pending') }}
+                        </option>
+                        <option value="confirmed">
+                            {{ __('messages.confirmed') }}
+                        </option>
+                        <option value="cancelled">
+                            {{ __('messages.cancelled') }}
+                        </option>
                     </select>
 
-                    <button class="btn btn-primary mt-3">Create</button>
+                    <button class="btn btn-primary mt-3">
+                        {{ __('messages.create') }}
+                    </button>
                 </form>
             </div>
         </div>
     </div>
-    <!-- ================= AXIOS SEARCH ================= -->
-    <script>
-        document.getElementById("search").addEventListener("input", function () {
-            let query = this.value;
-
-            axios.get("/search-appointments?q=" + query).then((res) => {
-                let rows = "";
-
-                res.data.forEach((a) => {
-                    rows += `
-                        <tr>
-                            <td>${a.id}</td>
-                            <td>${a.patient.first_name} ${a.patient.last_name}</td>
-                            <td>${a.doctor.first_name} ${a.doctor.last_name}</td>
-                            <td>${a.service.name}</td>
-                            <td>${a.appointment_date}</td>
-                            <td>${a.status}</td>
-                            <td>
-
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#showModal{{ $appointment->id }}">
-                                Show
-                            </button>
-
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $appointment->id }}">
-                                Edit
-                            </button>
-
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $appointment->id }}">
-                                Delete
-                            </button>
-
-                        </td>
-                        </tr>
-                    `;
-                });
-
-                document.getElementById("tableBody").innerHTML = rows;
-            });
-        });
-    </script>
 
 @endsection

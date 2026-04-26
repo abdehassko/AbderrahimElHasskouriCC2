@@ -7,7 +7,7 @@
             <!-- Logo -->
 
             <span class="text-blue-300 font-semibold text-sm hidden sm:block">
-                Gestion des rendez vous
+                {{ __('messages.app_name') }}
             </span>
 
             <!-- Right Side -->
@@ -27,7 +27,7 @@
                                 <div
                                     class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold text-white"
                                 >
-                                    Logout
+                                    {{ __('messages.logout') }}
                                 </div>
                             </button>
                         </x-slot>
@@ -49,7 +49,7 @@
                                         "
                                         class="hover:bg-red-500/10 hover:text-red-400"
                                     >
-                                        {{ __('Logout') }}
+                                        {{ __('messages.logout') }}
                                     </x-dropdown-link>
                                 </form>
                             </div>
@@ -110,7 +110,7 @@
                     "
                     class="text-red-400"
                 >
-                    {{ __('Log Out') }}
+                    {{ __('messages.logout') }}
                 </x-responsive-nav-link>
             </form>
         </div>

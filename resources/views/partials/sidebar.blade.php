@@ -1,39 +1,41 @@
 <aside
-    class="w-64 h-screen bg-slate-900 border-r border-blue-500/10 fixed top-0 left-0 flex flex-col"
+    class="w-48 h-screen bg-slate-900 border-r border-blue-500/10 fixed top-0 left-0 flex flex-col"
 >
     <!-- Logo -->
     <div class="h-16 flex items-center px-6 border-b border-blue-500/10">
-        <span class="text-blue-400 font-semibold text-lg"> Clinique </span>
+        <span class="text-blue-400 font-semibold text-lg">
+            {{ __('messages.app_name') }}
+        </span>
     </div>
 
     <!-- Navigation -->
     <nav class="flex-1 px-4 py-6 space-y-2">
         <a
-            href="{{ route('dashboard') }}"
-            class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            href="{{ route('appointments.index') }}"
+            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
         >
-            🏠 Dashboard
+            🏠 {{ __('messages.appointments_nav') }}
         </a>
 
         <a
             href="#"
-            class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
         >
-            👨‍⚕️ Doctors
+            👨‍⚕️ {{ __('messages.doctors') }}
         </a>
 
         <a
             href="#"
-            class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
         >
-            🧑‍🤝‍🧑 Patients
+            🧑‍🤝‍🧑 {{ __('messages.patients') }}
         </a>
 
         <a
             href="#"
-            class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
         >
-            🏥 Services
+            🏥 {{ __('messages.services') }}
         </a>
     </nav>
 
