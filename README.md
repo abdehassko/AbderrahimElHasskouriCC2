@@ -168,9 +168,6 @@ php artisan view:clear
 
 ---
 
-
----
-
 ## 👨‍💻 Auteur
 
 Projet réalisé par **Abderrahim El Hasskouri**
