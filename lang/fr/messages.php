@@ -53,7 +53,9 @@ return [
     'rights' => 'Tous droits réservés.',
 
     'quick_links' => 'Liens rapides',
-    'dashboard_greeting' => 'Bonjour ! Commencez à gérer notre clinique dès maintenant !',
+    'dashboard_admin' => 'Bonjour ! Commencez à gérer la clinique maintenant !',
+    'dashboard_doctor' => 'Bonjour Docteur ! Consultez vos rendez-vous aujourd’hui !',
+    'dashboard_patient' => 'Bienvenue ! Prenez facilement votre prochain rendez-vous !',
 
     'contact_us' => 'Contactez-nous',
     'address' => 'Adresse',

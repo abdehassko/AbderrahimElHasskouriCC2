@@ -8,7 +8,6 @@
             class="form-control mb-3"
             placeholder="{{ __('messages.search') }}"
         />
-
         <button
             class="btn btn-primary mb-3"
             data-bs-toggle="modal"
@@ -93,6 +92,7 @@
                                 </h4>
 
                                 <p><b>{{ __('messages.patient') }}:</b> {{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
+                                <p><b>{{ __('messages.email') }}:</b> {{ $appointment->patient->email }}</p>
                                 <p><b>{{ __('messages.doctor') }}:</b> {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</p>
                                 <p><b>{{ __('messages.service') }}:</b> {{ $appointment->service->name }}</p>
                                 <p><b>{{ __('messages.date') }}:</b> {{ $appointment->appointment_date }}</p>
@@ -131,14 +131,24 @@
                                         name="patient_id"
                                         class="form-control"
                                     >
-                                        @foreach (\App\Models\User::where('role','patient')->get() as $patient)
+                                        @if (auth()->user()->role !== 'patient')
+                                            @foreach (\App\Models\User::where('role','patient')->get() as $patient)
+                                                <option
+                                                    value="{{ $patient->id }}"
+                                                    {{ $patient->id ==  $appointment->patient_id ? 'selected' : '' }}
+                                                >
+                                                    {{ $patient->first_name }} {{ $patient->last_name }}
+                                                </option>
+                                            @endforeach
+
+                                        @else
                                             <option
-                                                value="{{ $patient->id }}"
-                                                {{ $patient->id ==  $appointment->patient_id ? 'selected' : '' }}
+                                                value="{{ auth()->user()->id }}"
+                                                {{ auth()->user()->id ==  auth()->user()->id ? 'selected' : '' }}
                                             >
-                                                {{ $patient->first_name }} {{ $patient->last_name }}
+                                                {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                             </option>
-                                        @endforeach
+                                        @endif
                                     </select>
 
                                     <label>{{ __('messages.doctor') }}</label>
@@ -146,14 +156,23 @@
                                         name="doctor_id"
                                         class="form-control"
                                     >
-                                        @foreach (\App\Models\User::where('role','doctor')->get() as $doctor)
+                                        @if (auth()->user()->role !== 'doctor')
+                                            @foreach (\App\Models\User::where('role','doctor')->get() as $doctor)
+                                                <option
+                                                    value="{{ $doctor->id }}"
+                                                    {{ $doctor->id ==  $appointment->doctor_id ? 'selected' : '' }}
+                                                >
+                                                    {{ $doctor->first_name }} {{ $doctor->last_name }}
+                                                </option>
+                                            @endforeach
+                                        @else
                                             <option
-                                                value="{{ $doctor->id }}"
-                                                {{ $doctor->id ==  $appointment->doctor_id ? 'selected' : '' }}
+                                                value="{{ auth()->user()->id }}"
+                                                {{ auth()->user()->id ==  auth()->user()->id ? 'selected' : '' }}
                                             >
-                                                {{ $doctor->first_name }} {{ $doctor->last_name }}
+                                                {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                             </option>
-                                        @endforeach
+                                        @endif
                                     </select>
 
                                     <label>{{ __('messages.service') }}</label>
@@ -180,29 +199,52 @@
                                     />
 
                                     <label>{{ __('messages.status') }}</label>
-                                    <select
-                                        name="status"
-                                        class="form-control mt-2"
-                                    >
-                                        <option
-                                            value="pending"
-                                            {{ $appointment->status == 'pending' ? 'selected' : '' }}
+                                    @if (auth()->user()->role !== 'patient')
+                                        <select
+                                            name="status"
+                                            class="form-control mt-2"
                                         >
-                                            {{ __('messages.pending') }}
-                                        </option>
-                                        <option
-                                            value="confirmed"
-                                            {{ $appointment->status == 'confirmed' ? 'selected' : '' }}
+                                            <option
+                                                value="pending"
+                                                {{ $appointment->status == 'pending' ? 'selected' : '' }}
+                                            >
+                                                {{ __('messages.pending') }}
+                                            </option>
+                                            <option
+                                                value="confirmed"
+                                                {{ $appointment->status == 'confirmed' ? 'selected' : '' }}
+                                            >
+                                                {{ __('messages.confirmed') }}
+                                            </option>
+                                            <option
+                                                value="cancelled"
+                                                {{ $appointment->status == 'cancelled' ? 'selected' : '' }}
+                                            >
+                                                {{ __('messages.cancelled') }}
+                                            </option>
+                                        </select>
+
+                                    @else
+                                        <select
+                                            name="status"
+                                            class="form-control mt-2"
                                         >
-                                            {{ __('messages.confirmed') }}
-                                        </option>
-                                        <option
-                                            value="cancelled"
-                                            {{ $appointment->status == 'cancelled' ? 'selected' : '' }}
-                                        >
-                                            {{ __('messages.cancelled') }}
-                                        </option>
-                                    </select>
+                                            <option
+                                                value="pending"
+                                                {{ $appointment->status == 'pending' ? 'selected' : '' }}
+                                            >
+                                                {{ __('messages.pending') }}
+                                            </option>
+
+                                            <option
+                                                value="cancelled"
+                                                {{ $appointment->status == 'cancelled' ? 'selected' : '' }}
+                                            >
+                                                {{ __('messages.cancelled') }}
+                                            </option>
+                                        </select>
+
+                                    @endif
 
                                     <button
                                         type="submit"
@@ -262,11 +304,17 @@
                         <option value="" disabled selected>
                             ---- {{ __('messages.choose_patient') }} ----
                         </option>
-                        @foreach (\App\Models\User::where('role','doctor')->get() as $patient)
-                            <option value="{{ $patient->id }}">
-                                {{ $patient->first_name }} {{ $patient->first_name }}
+                        @if (auth()->user()->role !== 'patient')
+                            @foreach (\App\Models\User::where('role','patient')->get() as $patient)
+                                <option value="{{ $patient->id }}">
+                                    {{ $patient->first_name }} {{ $patient->last_name }}
+                                </option>
+                            @endforeach
+                        @else
+                            <option value="{{ auth()->user()->id }}" selected>
+                                {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                             </option>
-                        @endforeach
+                        @endif
                     </select>
 
                     <label>{{ __('messages.doctor') }}</label>
@@ -274,11 +322,17 @@
                         <option value="" disabled selected>
                             ---- {{ __('messages.choose_doctor') }} ----
                         </option>
-                        @foreach (\App\Models\User::where('role','doctor')->get() as $doctor)
-                            <option value="{{ $doctor->id }}">
-                                {{ $doctor->first_name }} {{ $doctor->last_name }}
+                        @if (auth()->user()->role !== 'doctor')
+                            @foreach (\App\Models\User::where('role','doctor')->get() as $doctor)
+                                <option value="{{ $doctor->id }}">
+                                    {{ $doctor->first_name }} {{ $doctor->last_name }}
+                                </option>
+                            @endforeach
+                        @else
+                            <option value="{{ auth()->user()->id }}" selected>
+                                {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                             </option>
-                        @endforeach
+                        @endif
                     </select>
 
                     <label>{{ __('messages.service') }}</label>
@@ -302,18 +356,27 @@
 
                     <label>{{ __('messages.status') }}</label>
                     <select name="status" class="form-control mt-2">
-                        <option value="" disabled selected>
-                            ---- {{ __('messages.choose_status') }} ----
-                        </option>
-                        <option value="pending">
-                            {{ __('messages.pending') }}
-                        </option>
-                        <option value="confirmed">
-                            {{ __('messages.confirmed') }}
-                        </option>
-                        <option value="cancelled">
-                            {{ __('messages.cancelled') }}
-                        </option>
+                        @if (auth()->user()->role !== 'patient')
+                            <option value="" disabled selected>
+                                ---- {{ __('messages.choose_status') }} ----
+                            </option>
+                            <option value="pending">
+                                {{ __('messages.pending') }}
+                            </option>
+                            <option value="confirmed">
+                                {{ __('messages.confirmed') }}
+                            </option>
+                            <option value="cancelled">
+                                {{ __('messages.cancelled') }}
+                            </option>
+                        @else
+                            <option value="" disabled selected>
+                                ---- {{ __('messages.choose_status') }} ----
+                            </option>
+                            <option value="pending">
+                                {{ __('messages.pending') }}
+                            </option>
+                        @endif
                     </select>
 
                     <button class="btn btn-primary mt-3">
@@ -344,10 +407,27 @@
                             <td>${app.appointment_date}</td>
                             <td>${app.status}</td>
                             <td>
-                                <button class="btn btn-info btn-sm">Show</button>
-                                <button class="btn btn-warning btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
+                            <button
+                                class="btn btn-info btn-sm"
+                                data-bs-toggle="modal"
+                            >
+                                {{ __('messages.show') }}
+                            </button>
+
+                            <button
+                                class="btn btn-warning btn-sm"
+                                data-bs-toggle="modal"
+                            >
+                                {{ __('messages.edit') }}
+                            </button>
+
+                            <button
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                            >
+                                {{ __('messages.delete') }}
+                            </button>
+                        </td>
                         </tr>
                     `;
                     });

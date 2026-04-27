@@ -11,6 +11,18 @@ class Service extends Model
 {
     /** @use HasFactory<ServiceFactory> */
     use HasFactory;
+    public const   CATEGORIES = [
+        'consultation' => 'Consultation',
+        'diagnostics' => 'Diagnostics',
+        'laboratory' => 'Laboratory',
+        'imaging' => 'Imaging',
+        'surgery' => 'Surgery',
+        'therapy' => 'Therapy',
+        'emergency' => 'Emergency',
+        'pharmacy' => 'Pharmacy',
+        'home_care' => 'Home Care',
+        'other' => 'Other',
+    ];
 
     protected $fillable = [
         'name',

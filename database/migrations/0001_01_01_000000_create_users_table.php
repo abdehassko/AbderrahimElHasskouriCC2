@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->enum('role', ['patient', 'doctor'])->default('patient');
+            $table->enum('role', ['patient', 'doctor', 'admin'])->default('patient');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(1);

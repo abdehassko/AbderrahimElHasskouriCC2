@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AppointmentConfirmed;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,7 +15,21 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::with(['patient', 'doctor', 'service'])->get();
+        $user = Auth::user();
+        if ($user->role === 'doctor') {
+
+            $appointments = Appointment::with(['patient', 'doctor', 'service'])
+                ->where('doctor_id', $user->id)
+                ->get();
+        } elseif ($user->role === 'admin') {
+
+            $appointments = Appointment::with(['patient', 'doctor', 'service'])->get();
+        } else {
+
+            $appointments = Appointment::with(['patient', 'doctor', 'service'])
+                ->where('patient_id', $user->id)
+                ->get();
+        }
 
         return view('appointments.index', compact('appointments'));
     }
@@ -104,8 +119,18 @@ class AppointmentController extends Controller
     public function search(Request $request)
     {
         $q = $request->q;
+        $user = Auth::user();
 
         $appointments = Appointment::with(['patient', 'doctor', 'service'])
+
+            ->when($user->role === 'doctor', function ($query) use ($user) {
+                $query->where('doctor_id', $user->id);
+            })
+
+            ->when($user->role === 'patient', function ($query) use ($user) {
+                $query->where('patient_id', $user->id);
+            })
+
             ->where(function ($query) use ($q) {
                 $query->where('appointment_date', 'like', "%$q%")
                     ->orWhere('status', 'like', "%$q%")

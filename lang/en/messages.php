@@ -2,7 +2,9 @@
 
 return [
     'app_name' => 'Clinic management',
-    'dashboard_greeting' => 'Good Morning! Start Managing Our Clinic Now!',
+    'dashboard_admin' => 'Good morning! Start managing the clinic now!',
+    'dashboard_doctor' => 'Good morning Doctor! Check your appointments today!',
+    'dashboard_patient' => 'Welcome! Book your next appointment easily!',
     'appointments' => 'Appointments',
     'add' => 'Add',
     'search' => 'Search by anything...',

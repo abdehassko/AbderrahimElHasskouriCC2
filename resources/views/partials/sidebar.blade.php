@@ -16,27 +16,30 @@
         >
             🏠 {{ __('messages.appointments_nav') }}
         </a>
-
-        <a
-            href="#"
-            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
-        >
-            👨‍⚕️ {{ __('messages.doctors') }}
-        </a>
-
-        <a
-            href="#"
-            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
-        >
-            🧑‍🤝‍🧑 {{ __('messages.patients') }}
-        </a>
-
-        <a
-            href="#"
-            class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
-        >
-            🏥 {{ __('messages.services') }}
-        </a>
+        @if (auth()->user()->role == 'admin')
+            <a
+                href="{{ route('doctors.index') }}"
+                class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            >
+                👨‍⚕️ {{ __('messages.doctors') }}
+            </a>
+        @endif
+        @if (auth()->user()->role == 'admin')
+            <a
+                href="{{ route('patients.index') }}"
+                class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            >
+                🧑‍🤝‍🧑 {{ __('messages.patients') }}
+            </a>
+        @endif
+        @if (auth()->user()->role == 'admin')
+            <a
+                href="{{ route('services.index') }}"
+                class="flex items-center gap-3 px-2 py-2 rounded-lg text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 transition"
+            >
+                🏥 {{ __('messages.services') }}
+            </a>
+        @endif
     </nav>
 
     <!-- Bottom User -->
@@ -48,8 +51,19 @@
                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
             </div>
             <div>
-                <p class="text-sm text-white">{{ Auth::user()->name }}</p>
-                <p class="text-xs text-slate-400">Admin</p>
+                <p class="text-sm text-white">
+                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                </p>
+
+                <p class="text-xs text-slate-400">
+                    @if (Auth::user()->role === 'admin')
+                        Admin
+                    @elseif (Auth::user()->role === 'doctor')
+                        Doctor
+                    @else
+                        Patient
+                    @endif
+                </p>
             </div>
         </div>
     </div>

@@ -12,15 +12,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $services = Service::all();
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -28,23 +21,22 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // 🔥 VALIDATION
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'category' => 'nullable|string',
+            'description' => 'nullable|string',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Service $service)
-    {
-        //
-    }
+        Service::create($request->only([
+            'name',
+            'price',
+            'category',
+            'description'
+        ]));
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Service $service)
-    {
-        //
+        return back()->with('success', 'Service created successfully ');
     }
 
     /**
@@ -52,7 +44,22 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        // 🔥 VALIDATION
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'category' => 'nullable|string',
+            'description' => 'nullable|string',
+        ]);
+
+        $service->update($request->only([
+            'name',
+            'price',
+            'category',
+            'description'
+        ]));
+
+        return back()->with('success', 'Service updated successfully ');
     }
 
     /**
@@ -60,6 +67,25 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $service->delete();
+
+        return back()->with('success', 'Service deleted successfully ');
+    }
+
+    /**
+     * Search services (AJAX)
+     */
+    public function search(Request $request)
+    {
+        $q = $request->q;
+
+        $services = Service::where(function ($query) use ($q) {
+            $query->where('name', 'like', "%$q%")
+                ->orWhere('category', 'like', "%$q%")
+                ->orWhere('price', 'like', "%$q%")
+                ->orWhere('description', 'like', "%$q%");
+        })->get();
+
+        return response()->json($services);
     }
 }

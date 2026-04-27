@@ -7,7 +7,3 @@ use App\Http\Controllers\Api\AppointmentApiController;
 
 Route::get('/appointments', [AppointmentApiController::class, 'index']);
 Route::post('/appointments', [AppointmentApiController::class, 'store']);
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
