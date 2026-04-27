@@ -136,13 +136,86 @@ Retourne la liste de tous les rendez-vous enregistrés dans la base de données 
 ```json
 [
   {
-    "id": 1,
-    "patient_id": 3,
-    "doctor_id": 2,
-    "service_id": 1,
-    "appointment_date": "2026-05-01 10:00:00",
-    "status": "confirmed"
-  }
+        "id": 3,
+        "patient_id": 13,
+        "doctor_id": 1,
+        "service_id": 4,
+        "appointment_date": "2026-05-22 09:35:00",
+        "status": "cancelled",
+        "created_at": "2026-04-27T16:20:53.000000Z",
+        "updated_at": "2026-04-27T20:55:23.000000Z",
+        "patient": {
+            "id": 13,
+            "first_name": "Manuel",
+            "last_name": "Shields",
+            "email": "vpowlowski@example.com",
+            "role": "patient",
+            "email_verified_at": "2026-04-27T16:20:51.000000Z",
+            "is_active": 1,
+            "created_at": "2026-04-27T16:20:51.000000Z",
+            "updated_at": "2026-04-27T19:59:59.000000Z"
+        },
+        "doctor": {
+            "id": 1,
+            "first_name": "Myrtisa",
+            "last_name": "Konopelskis",
+            "email": "elyse.denesik@example.com",
+            "role": "doctor",
+            "email_verified_at": "2026-04-27T16:20:49.000000Z",
+            "is_active": 1,
+            "created_at": "2026-04-27T16:20:50.000000Z",
+            "updated_at": "2026-04-27T19:48:02.000000Z"
+        },
+        "service": {
+            "id": 4,
+            "name": "MRI Scan",
+            "price": "4684.19",
+            "description": "Quisquam molestiae nesciunt est aut. Fuga exercitationem repellendus facere sed autem voluptas nisi molestias. Laborum dolorem unde est quaerat. Tempore qui mollitia tempore.",
+            "category": "imaging",
+            "created_at": "2026-04-27T16:20:53.000000Z",
+            "updated_at": "2026-04-27T16:20:53.000000Z"
+        }
+    },
+    {
+        "id": 4,
+        "patient_id": 14,
+        "doctor_id": 2,
+        "service_id": 6,
+        "appointment_date": "2026-05-12 06:59:15",
+        "status": "confirmed",
+        "created_at": "2026-04-27T16:20:53.000000Z",
+        "updated_at": "2026-04-27T16:20:53.000000Z",
+        "patient": {
+            "id": 14,
+            "first_name": "Janiya",
+            "last_name": "Renner",
+            "email": "qbins@example.net",
+            "role": "patient",
+            "email_verified_at": "2026-04-27T16:20:51.000000Z",
+            "is_active": 1,
+            "created_at": "2026-04-27T16:20:51.000000Z",
+            "updated_at": "2026-04-27T16:20:51.000000Z"
+        },
+        "doctor": {
+            "id": 2,
+            "first_name": "Margaretta",
+            "last_name": "Lakin",
+            "email": "ahmad.gulgowski@example.com",
+            "role": "doctor",
+            "email_verified_at": "2026-04-27T16:20:50.000000Z",
+            "is_active": 1,
+            "created_at": "2026-04-27T16:20:50.000000Z",
+            "updated_at": "2026-04-27T16:20:50.000000Z"
+        },
+        "service": {
+            "id": 6,
+            "name": "General Consultation",
+            "price": "3053.29",
+            "description": "Consectetur vel inventore autem nesciunt maiores repellendus. Natus quia molestiae nesciunt iste sit deserunt. Nostrum veritatis laboriosam in exercitationem. Laborum veniam nam reiciendis.",
+            "category": "imaging",
+            "created_at": "2026-04-27T16:20:53.000000Z",
+            "updated_at": "2026-04-27T16:20:53.000000Z"
+        }
 ]
 ```
 
@@ -162,13 +235,13 @@ Permet de créer un nouveau rendez-vous via une requête externe (Postman, front
 **Body (JSON) :**
 
 ```json
-{
-  "patient_id": 1,
-  "doctor_id": 2,
-  "service_id": 1,
-  "appointment_date": "2026-05-10 14:30:00",
-  "status": "pending"
-}
+    {
+    "patient_id": 27,
+    "doctor_id": 36,
+    "service_id": 9,
+    "appointment_date": "2026-10-10 16:30:00",
+    "status": "cancelled"
+    }
 ```
 
 **Exemple de réponse :**
@@ -177,34 +250,13 @@ Permet de créer un nouveau rendez-vous via une requête externe (Postman, front
 **Exemple de réponse :**
 
 ```json
-[
-  {
-    "id": 1,
-    "appointment_date": "2026-05-10 14:30:00",
-    "status": "confirmed",
-
-    "patient": {
-      "id": 1,
-      "first_name": "Paul",
-      "last_name": "Arelan",
-      "email": "patient@test.com"
-    },
-
-    "doctor": {
-      "id": 2,
-      "name": "Dr. Ahmed",
-      "email": "doctor@test.com"
-    },
-
-    "service": {
-      "id": 1,
-      "name": "Consultation"
-    },
-
-    "created_at": "2026-04-25T10:00:00.000000Z",
-    "updated_at": "2026-04-25T10:00:00.000000Z"
-  }
-]
+    {
+    "patient_id": 27,
+    "doctor_id": 36,
+    "service_id": 9,
+    "appointment_date": "2026-10-10 16:30:00",
+    "status": "cancelled"
+    }
 ```
 
 ```
