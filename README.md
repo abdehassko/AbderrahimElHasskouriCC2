@@ -106,9 +106,11 @@ http://127.0.0.1:8000
 
 ## 🔑 Compte de test
 
- Email                                                      | Mot de passe |
- ---------------------------------------------------------- | ------------ |
- [admin@cliniquemaroc.com](mailto:admin@cliniquemaroc.com)  | 123456789    |
+ Email                                                        | Mot de passe |
+ ------------------------------------------------------------ | ------------ |
+ [admin@cliniquemaroc.com](mailto:admin@cliniquemaroc.com)    | 12121212     |
+ [patient@cliniquemaroc.com](mailto:admin@cliniquemaroc.com)  | 12121212     |
+ [rrahimabde033@gmail.com](mailto:admin@cliniquemaroc.com)    | abdeabde     |
 
 ---
 
