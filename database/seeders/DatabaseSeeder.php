@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'email' => 'admin@cliniquemaroc.com',
+            'password' => Hash::make('12121212'),
+            'role' => 'admin',
+        ]);
+
+        User::create([
+            'first_name' => 'Patient',
+            'last_name' => 'Patient',
+            'email' => 'patient@cliniquemaroc.com',
+            'password' => Hash::make('12121212'),
+            'role' => 'patient',
+        ]);
+
+        User::create([
+            'first_name' => 'Abderrahim',
+            'last_name' => 'El Hasskouri',
+            'email' => 'rrahimabde033@gmail.com',
+            'password' => Hash::make('abdeabde'),
+            'role' => 'doctor',
+        ]);
 
         $doctors = User::factory()
             ->count(10)
